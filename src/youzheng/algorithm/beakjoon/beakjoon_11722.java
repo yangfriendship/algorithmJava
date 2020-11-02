@@ -14,9 +14,8 @@ public class beakjoon_11722 {
         int n = Integer.parseInt(br.readLine());
 
         int[] arr = new int[n];
-        StringTokenizer st = new StringTokenizer(br.readLine());
         for (int i = 0; i < n; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
+            arr[i] = Integer.parseInt(br.readLine());
         }
 
         if(n==1){
