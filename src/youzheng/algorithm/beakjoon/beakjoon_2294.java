@@ -44,9 +44,7 @@ public class beakjoon_2294 {
                 if (value !=1 && (dp[i] == 0 || dp[i] > value)) {
                     dp[i] = value;
                 }
-
             }
-
         }
 
         if(dp[k]==0){
