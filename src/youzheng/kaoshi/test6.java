@@ -36,8 +36,6 @@ public class test6 {
                 stData[i][0] = ques;
                 stData[i][1] = score;
 
-
-
             }
 
  
