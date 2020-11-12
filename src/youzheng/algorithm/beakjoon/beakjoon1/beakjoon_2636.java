@@ -12,110 +12,121 @@ public class beakjoon_2636 {
     static int n;
     static int m;
     static int cnt;
-    static int T = 1;
+    static int T = 2;
+
+    static boolean[][] visit;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        int turn = 0;
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
         int[][] arr = new int[n][m];
+        visit = new boolean[n][m];
 
         for (int i = 0; i < n; i++) {
             st = new StringTokenizer(br.readLine());
             for (int j = 0; j < m; j++) {
                 int value = Integer.parseInt(st.nextToken());
-
-                    arr[i][j] = value;
+                arr[i][j] = value;
 
             }
         }
-        T++;
         br.close();
         st = null;
-        cnt = getcount(arr);
-        paintSide(arr);
-        printArr(arr);
-        int answer = cnt;
-        while(cnt > 0 ){
 
-            answer = cnt;
-            System.out.println(answer);
-
-            for (int i = 0; i < arr.length; i++) {
-
-                for (int j = 0; j < arr[0].length; j++) {
-
-                    int target = arr[i][j];
-                    boolean flag = false;
-                    int[] x = {0, 0, 1, -1};
-                    int[] y = {-1, 1, 0, 0};
-                    //상하좌우 for문
-                    if (target == 1) {
-                        for (int k = 0; k < 4; k++) {
-                            if (isSide(arr, i + y[k], j + x[k])) {
-                                flag = true;
-                                break;       //만약에 상하좌우중 하나가 c라면 종료 
-                            }
-                        }
-                    }
-                    //상하좌우 for문
-                    if (flag) {      // 외벽이 c라면 녹여짐
-                        arr[i][j] = T+1;
-                        cnt --;
-                    }
-                } // inner for
-            }//for1
-            for (int i = 0; i < arr.length; i++) {
-
-                for (int j = 0; j < arr[0].length; j++) {
-
-                    if(arr[i][j] == T){
-                        bfs(arr,i,j);
-                    }
-
-                }
-
+        if(n<= 2 || m<=2){
+            if(getcount(arr)==0){
+                System.out.println(0);
+                System.out.println(0);
+                return;
             }
-
-
+            System.out.println(1);
+            System.out.println(getcount(arr));
+            return;
         }
 
 
+        paintSide(arr); //처음 입력받은 후 작업
+        visit = new boolean[n][m];
+        int cnt = getcount(arr);
+        int answer = cnt ;
+        int turn = 0;
 
+        while(cnt>0){
+            turn ++;
+            answer = cnt;
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < m; j++) {
+
+                    if(arr[i][j] == 1 && isSide(arr,i,j)){
+                        arr[i][j] = T+1;
+                        cnt--;
+//                        bfs(arr,i,j);
+                    }
+                }
+            }
+            T++;
+            paintSide(arr);
+//            printArr(arr,"");
+//            System.out.println("---------------");
+        }
+
+        System.out.println(turn);
+        System.out.println(answer);
 
 
     }
 
     public static boolean isSide(int[][] arr, int y, int x) {
-
-        if (arr[y][x] == T) {
+        if (!isRng(y,x)){
             return true;
         }
+        if(isRng(y+1,x)){
+            if(arr[y+1][x] == T){
+                return true;
+            }
+        }
+        if(isRng(y-1,x)){
+            if(arr[y-1][x] == T){
+                return true;
+            }
+        }
+        if(isRng(y,x+1)){
+            if(arr[y][x+1] == T){
+                return true;
+            }
+        }
+        if(isRng(y,x-1)){
+            if(arr[y][x-1] == T){
+                return true;
+            }
+        }
+
+
         return false;
     }
 
     public static void paintSide(int[][] arr) {
         for (int i = 0; i < m; i++) {
-            if (arr[0][i] == 0) {
+            if (arr[0][i] < T && arr[0][i] !=1) {
                 bfs(arr, 0, i);
             }
         }
         for (int i = 0; i < m; i++) {
-            if (arr[n - 1][i] == 0) {
+            if (arr[n - 1][i] < T && arr[n-1][i] !=1) {
                 bfs(arr, n - 1, i);
             }
         }
 
         for (int i = 0; i < n; i++) {
-            if (arr[i][0] == 0) {
+            if (arr[i][0] < T && arr[i][0] !=1) {
                 bfs(arr, i, 0);
             }
         }
         for (int i = 0; i < n; i++) {
-            if (arr[i][m - 1] == 0) {
+            if (arr[i][m - 1] < T && arr[i][m-1] !=1) {
                 bfs(arr, i, m - 1);
             }
         }
@@ -136,12 +147,12 @@ public class beakjoon_2636 {
         return count;
     }
 
-    public static void printArr(int[][] arr,String str) {
+    public static void printArr(int[][] arr, String str) {
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr[0].length; j++) {
-                if(arr[i][j]==1){
+                if (arr[i][j] == 1) {
                     System.out.printf("%d ", arr[i][j]);
-                }else {
+                } else {
                     System.out.printf("%d ", 0);
                 }
             }
@@ -168,30 +179,30 @@ public class beakjoon_2636 {
 
     public static void bfs(int[][] arr, int y, int x) {
 
-
-
-        if (arr[y][x] != 1 ) {
+        if(arr[y][x] < T && arr[y][x] != 1){
             arr[y][x] = T;
         }
-        if (isRng(y + 1, x)) {
-            if (arr[y + 1][x] == 0) {
-                bfs(arr, y + 1, x);
-            }
+
+        if (arr[y][x] == 1) {
+//            visit[y][x] = true;
+            return;
         }
-        if (isRng(y - 1, x)) {
-            if (arr[y - 1][x] == 0 ) {
-                bfs(arr, y - 1, x);
-            }
+
+        if (isRng(y + 1, x) && !visit[y+1][x]) {
+            visit[y+1][x] = true;
+            bfs(arr, y + 1, x);
         }
-        if (isRng(y, x + 1)) {
-            if (arr[y][x + 1] == 0 ) {
-                bfs(arr, y, x + 1);
-            }
+        if (isRng(y - 1, x)&& !visit[y-1][x] ) {
+            visit[y-1][x] = true;
+            bfs(arr, y - 1, x);
         }
-        if (isRng(y, x - 1)) {
-            if (arr[y][x - 1] == 0 ) {
-                bfs(arr, y, x - 1);
-            }
+        if (isRng(y, x + 1) && !visit[y][x+1]) {
+            visit[y][x+1] = true;
+            bfs(arr, y, x + 1);
+        }
+        if (isRng(y, x - 1) && !visit[y][x-1]) {
+            visit[y][x-1] = true;
+            bfs(arr, y, x - 1);
         }
 
 
