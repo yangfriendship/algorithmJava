@@ -119,6 +119,23 @@ public class beakjoon_14503 {
 
     public static boolean canBack() {
         if (direction == 0) {
+            down();
+
+            if(isBlock()){
+                up();
+                return false;
+            }
+            up();
+            return true;
+        } else if (direction == 1) {
+            left();
+            if(isBlock()){
+                right();
+                return false;
+            }
+            right();
+            return true;
+        } else if (direction == 2) {
             up();
             if(isBlock()){
                 down();
@@ -126,29 +143,14 @@ public class beakjoon_14503 {
             }
             down();
             return true;
-        } else if (direction == 1) {
-            right();
-            if(isBlock()){
-                left();
-                return false;
-            }
-            left();
-            return true;
-        } else if (direction == 2) {
-            down();
-            if(isBlock()){
-                up();
-                return false;
-            }
-            up();
-            return true;
         } else if (direction == 3) {
-            left();
+            right();
             if (isBlock()){
-                right();
+                left();
+
                 return false;
             }
-            right();
+            left();
             return true;
         }
         return true;
