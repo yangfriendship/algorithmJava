@@ -36,41 +36,33 @@ public class beakjoon_14503 {
         } //input Array
 
         while (!over) {
-
-            print();
+            searchCnt = 0;
             boolean find = false;
-            if (arr[y][x]==0){
+            if (arr[y][x] == 0) {
                 clear();
             }
 
-            while (true) {
-                while (searchCnt < 4) {    // 좌 후 우 순으로 탐색하고 searchCnt 3회가 되면 AllCrear=true 종료
+            while (searchCnt < 4) {    // 좌 후 우 순으로 탐색하고 searchCnt 3회가 되면 AllCrear=true 종료
 
-                    turnLeft();
-                    if (hasLaji()) {
-                        find = true;
-                        searchCnt = 0;
-                        break;
-                    } else {
-                        searchCnt++;
-                    }
-                }
-
-                if (find) {
-                    move();
+                turnLeft();
+                if (hasLaji()) {
+                    find = true;
+                    searchCnt = 0;
                     break;
                 } else {
-                    if (canBack()) {
-                        back();
-                        break;
-                    } else {
-                        over = true;
-                        System.out.println(cnt);
-                        return;
-                    }
+                    searchCnt++;
                 }
+            }
 
+            if (find) {
+                move();
 
+            } else {
+                if (canBack()) {
+                    back();
+                } else {
+                    over = true;
+                }
             }
 
 
@@ -78,15 +70,23 @@ public class beakjoon_14503 {
         System.out.println(cnt);
 
     }
-    public static  boolean isBlock(){
-        if(arr[y][x]==1){
+
+    public static boolean isBlock() {
+        if (arr[y][x] == 1) {
             return true;
         }
         return false;
     }
+    public static void turnRight(){
+        if (direction + 1 > 3) {
+            direction = 0;
+            return;
+        }
+        direction++;
+    }
 
     public static void print() {
-        System.out.println("cnt: " + cnt +"d: "+ direction);
+        System.out.println("cnt: " + cnt + "d: " + direction);
         for (int i = 0; i < arr.length; i++) {
 
             for (int j = 0; j < arr[0].length; j++) {
@@ -120,8 +120,7 @@ public class beakjoon_14503 {
     public static boolean canBack() {
         if (direction == 0) {
             down();
-
-            if(isBlock()){
+            if (isBlock()) {
                 up();
                 return false;
             }
@@ -129,7 +128,7 @@ public class beakjoon_14503 {
             return true;
         } else if (direction == 1) {
             left();
-            if(isBlock()){
+            if (isBlock()) {
                 right();
                 return false;
             }
@@ -137,7 +136,7 @@ public class beakjoon_14503 {
             return true;
         } else if (direction == 2) {
             up();
-            if(isBlock()){
+            if (isBlock()) {
                 down();
                 return false;
             }
@@ -145,7 +144,7 @@ public class beakjoon_14503 {
             return true;
         } else if (direction == 3) {
             right();
-            if (isBlock()){
+            if (isBlock()) {
                 left();
 
                 return false;
@@ -153,7 +152,7 @@ public class beakjoon_14503 {
             left();
             return true;
         }
-        return true;
+        return false;
     }
 
     public static boolean hasLaji() {
@@ -213,11 +212,11 @@ public class beakjoon_14503 {
 
     public static void turnLeft() {
 
-        if (direction - 1 < 0) {
+        if (direction - 1 == -1) {
             direction = 3;
             return;
         }
-        direction--;
+        direction= direction-1;
     }
 
     public static boolean notBlock(int y, int x) {
