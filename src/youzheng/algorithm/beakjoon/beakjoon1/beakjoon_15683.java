@@ -48,24 +48,29 @@ public class beakjoon_15683 {
             }
         }
         int[][] copy = copyArr(arr);
-
+        
         dfs(copy, 0);
         System.out.println(answer);
 
 
+
+
     }
+
+
 
 
     static int answer = Integer.MAX_VALUE;
 
     static void dfs(int[][] arr, int r) {
 
-        if (r > cameras.size() - 1) { // 카메라 x대만큼 탐색을 다 했으니 반환
+        if (r > cameras.size()-1) { // 카메라 x대만큼 탐색을 다 했으니 반환
 
             int zeroCnt = getZeroCnt(arr);
 
             if (zeroCnt < answer) {
                 answer = zeroCnt;
+                resultArr = copyArr(arr);
             }
             arr = null;
             return;
@@ -77,7 +82,7 @@ public class beakjoon_15683 {
 
         if (w == 1) {
             int[][] copy1 = copyArr(arr);
-            int d1 = horizontalDown(copy1, cameraY, cameraX);
+            horizontalDown(copy1, cameraY, cameraX);
             dfs(copy1, r + 1);
 
             int[][] copy2 = copyArr(arr);
@@ -90,7 +95,7 @@ public class beakjoon_15683 {
 
             int[][] copy4 = copyArr(arr);
             VerticalRight(copy4, cameraY, cameraX);
-            dfs(copy2, r + 1);
+            dfs(copy4, r + 1);
 
 
         }
@@ -133,7 +138,7 @@ public class beakjoon_15683 {
 
         if (w == 4) {
             int[][] copy1 = copyArr(arr);
-            int d2 = horizontalUp(copy1, cameraY, cameraY);
+            int d2 = horizontalUp(copy1, cameraY, cameraX);
             int d3 = VerticalLeft(copy1, cameraY, cameraX);
             int d4 = VerticalRight(copy1, cameraY, cameraX);
             dfs(copy1, r + 1);
@@ -198,13 +203,15 @@ public class beakjoon_15683 {
         return true;
     }
 
+    static int[][] resultArr ;
+
 
     public static int horizontalDown(int[][] arr, int y, int x) {
         int cnt = 0;
         for (int i = y + 1; i < n; i++) {
 
             if (isRng(i, x)) {    //범위 체크 후
-                if (arr[i][x] < 1) { // 0이라면 7(감시)로 바꿈
+                if (arr[i][x] ==0) { // 0이라면 7(감시)로 바꿈
                     arr[i][x] = 7;
                     cnt++;
                 } else if (arr[i][x] == 6) {   //벽이면 더이상 못감, 정지
@@ -222,7 +229,7 @@ public class beakjoon_15683 {
         for (int i = y - 1; i >= 0; i--) {
 
             if (isRng(i, x)) {    //범위 체크 후
-                if (arr[i][x] < 1) { // 0이라면 7(감시)로 바꿈
+                if (arr[i][x] ==0) { // 0이라면 7(감시)로 바꿈
                     arr[i][x] = 7;
                     cnt++;
                 } else if (arr[i][x] == 6) {   //벽이면 더이상 못감, 정지
@@ -240,7 +247,7 @@ public class beakjoon_15683 {
         for (int i = x + 1; i < m; i++) {
 
             if (isRng(y, i)) {    //범위 체크 후
-                if (arr[y][i] < 1) { // 0이라면 7(감시)로 바꿈
+                if (arr[y][i] == 0) { // 0이라면 7(감시)로 바꿈
                     arr[y][i] = 7;
                     cnt++;
                 } else if (arr[y][i] == 6) {   //벽이면 더이상 못감, 정지
@@ -259,7 +266,7 @@ public class beakjoon_15683 {
         for (int i = x - 1; i >= 0; i--) {
 
             if (isRng(y, i)) {    //범위 체크 후
-                if (arr[y][i] < 1) { // 0이라면 7(감시)로 바꿈, 카메라가 아니고 벽도 아닌
+                if (arr[y][i] == 0) { // 0이라면 7(감시)로 바꿈, 카메라가 아니고 벽도 아닌
                     arr[y][i] = 7;
                 } else if (arr[y][i] == 6) {   //벽이면 더이상 못감, 정지
                     return cnt;

@@ -7,11 +7,15 @@ public class Test {
     public static void main(String[] args) {
 
         int[][] arr = new int[][]{{0, 1, 2, 3, 4},{5,6,7,8,9}};
-        int[][] copy = copyArr(arr);
-        copy[0][0] = 100;
+        System.out.println("----original------");
         printArr(arr);
-        System.out.println("====================");
+        int[][] copy = arr;
+        System.out.println("------copy------");
+        copy[0][0] = 100;
         printArr(copy);
+        System.out.println("-original-change--");
+        printArr(arr);
+
 
 
     }
