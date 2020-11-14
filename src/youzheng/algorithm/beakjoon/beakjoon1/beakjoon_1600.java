@@ -13,6 +13,7 @@ public class beakjoon_1600 {
     static int n;
     static int m ;
     static int[][] arr;
+    static boolean[][][] visit ;
 
     static class Data {
         int x;
@@ -76,7 +77,7 @@ public class beakjoon_1600 {
 
         que.add(new Data(0,0,k,0));
 
-        boolean[][][] visit = new boolean[n][m][k+1]; //goal은 +1 배열의 길이
+         visit = new boolean[n][m][k+1]; //goal은 +1 배열의 길이
         visit[0][0][k] = true;
         while (!que.isEmpty()) {
             Data d = que.poll();

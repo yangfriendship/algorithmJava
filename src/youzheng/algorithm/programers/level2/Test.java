@@ -1,36 +1,41 @@
 package youzheng.algorithm.programers.level2;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 public class Test {
 
     public static void main(String[] args) {
 
-        int[][] v = {{1, 4}, {3, 4}, {3, 10}};
+        int[][] arr = new int[][]{{0, 1, 2, 3, 4},{5,6,7,8,9}};
+        int[][] copy = copyArr(arr);
+        copy[0][0] = 100;
+        printArr(arr);
+        System.out.println("====================");
+        printArr(copy);
 
-        int x =v[0][0];
-        int y =v[0][1];
 
-        if (x == v[1][0]){
-            x = v[2][0];
-        }else {
-            if(x==v[2][0]){
-                x=v[1][0];
-            }
+    }
 
+    public static int[][] copyArr(int[][] arr){
+        int[][] copy = new int[arr.length][arr[0].length];
+
+        for (int i = 0; i < arr.length; i++) {
+            copy[i] = arr[i].clone();
         }
-        if (y == v[1][1]){
-            y = v[2][1];
-        }else {
-            if(y==v[2][1]){
-                y=v[1][1];
-            }
-        }
-        System.out.printf("%d %d ",x,y);
 
+
+        return copy;
+    }
+
+    public static void printArr(int[][] arr) {
+
+        for (int i = 0; i < arr.length; i++) {
+
+            for (int j = 0; j < arr[0].length; j++) {
+                System.out.printf("%d ",arr[i][j]);
+            }
+            System.out.println();
+        }
 
     }
 
