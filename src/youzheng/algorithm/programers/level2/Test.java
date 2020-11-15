@@ -6,13 +6,9 @@ public class Test {
 
     public static void main(String[] args) {
 
-        String str = "0 101 ";
-
+        String str = " 1  0101 ";
         System.out.println(Integer.parseInt(str.trim()));
 
-
     }
-
-
 
 }
