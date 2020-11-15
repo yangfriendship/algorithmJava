@@ -6,41 +6,13 @@ public class Test {
 
     public static void main(String[] args) {
 
-        int[][] arr = new int[][]{{0, 1, 2, 3, 4},{5,6,7,8,9}};
-        System.out.println("----original------");
-        printArr(arr);
-        int[][] copy = arr;
-        System.out.println("------copy------");
-        copy[0][0] = 100;
-        printArr(copy);
-        System.out.println("-original-change--");
-        printArr(arr);
+        String str = "0 101 ";
 
+        System.out.println(Integer.parseInt(str.trim()));
 
 
     }
 
-    public static int[][] copyArr(int[][] arr){
-        int[][] copy = new int[arr.length][arr[0].length];
 
-        for (int i = 0; i < arr.length; i++) {
-            copy[i] = arr[i].clone();
-        }
-
-
-        return copy;
-    }
-
-    public static void printArr(int[][] arr) {
-
-        for (int i = 0; i < arr.length; i++) {
-
-            for (int j = 0; j < arr[0].length; j++) {
-                System.out.printf("%d ",arr[i][j]);
-            }
-            System.out.println();
-        }
-
-    }
 
 }
