@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-public class beakjoon_11723 {
+public class beakjoon_11723_set {
 
     public static void main(String[] args) throws IOException {
 

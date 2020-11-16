@@ -5,9 +5,8 @@ import java.util.*;
 public class Test {
 
     public static void main(String[] args) {
-
-        String str = " 1  0101 ";
-        System.out.println(Integer.parseInt(str.trim()));
+        int bit = 0;
+        System.out.println(~bit);
 
     }
 
