@@ -22,7 +22,6 @@ public class programers42890 {
         boolean[] visit = new boolean[isPk.length];
         for (int i = 0; i < relation[0].length; i++) {
 
-            if()
 
         }
 
