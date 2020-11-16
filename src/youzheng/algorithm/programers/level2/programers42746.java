@@ -44,7 +44,7 @@ public class programers42746 {
         sb.append(zero);
 
         String answer = new String(sb);
-        if(answer.charAt(0)== '0'){
+        if(answer.charAt(0)== '0'){ // input에 0만 들어있던 것이다! 아마 000000이런 문자열이 만들어져 있을 것
             return "0";
         }
 
