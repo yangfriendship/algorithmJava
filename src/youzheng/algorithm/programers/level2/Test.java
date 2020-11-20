@@ -8,18 +8,10 @@ public class Test {
 
     public static void main(String[] args) {
 
-        arr = new long[3][3];
+        String input = "abcde";
+        int i = input.charAt(0) - 97;
+        System.out.println(i);
 
-        arr[2][2] = 7;
-
-        boolean a = isWall(2, 2, 1);
-        boolean b = isWall(2, 2, 2);
-        boolean c = isWall(2, 2, 3);
-        boolean d = isWall(2, 2, 4);
-        System.out.println(a);
-        System.out.println(b);
-        System.out.println(c);
-        System.out.println(d);
     }
 
     private static boolean isWall(int y, int x, int dir) { //left=1,up=2,right=3,down=4 , dir= 체크할 방향
